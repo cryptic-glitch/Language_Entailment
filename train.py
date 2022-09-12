@@ -95,8 +95,6 @@ class Deberta(torch.nn.Module):
         self.model = AutoModelForSequenceClassification.from_pretrained(
             "/home/pop/Language_Entailment_Proj/Language_Entailment/local-pt-checkpoint"
         )
-        for p in self.model.base_model.parameters():
-            p.requires_grad_(requires_grad=False)
 
     def forward(self, **kwargs) -> torch.Tensor:
         return self.model(**kwargs)
@@ -219,7 +217,7 @@ def parse_args():
     parser.add_argument("train_path", type=str)
     parser.add_argument("val_path", type=str)
     parser.add_argument("--epochs", type=int, default=20)
-    parser.add_argument("--train_bs", type=int, default=24)
+    parser.add_argument("--train_bs", type=int, default=128)
     parser.add_argument("--val_bs", type=int, default=12)
     parser.add_argument("--sample_transform", type=bool, default=False)
     parser.add_argument("--wandb", type=bool, default=False)
